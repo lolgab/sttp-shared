@@ -4,11 +4,10 @@ val scala2_11 = "2.11.12"
 val scala2_12 = "2.12.12"
 val scala2_13 = "2.13.4"
 val scala2 = List(scala2_11, scala2_12, scala2_13)
-val scala3_M2 = "3.0.0-M2"
 val scala3_M3 = "3.0.0-M3"
-val scala3 = List(scala3_M2, scala3_M3)
+val scala3 = List(scala3_M3)
 
-val sttpModelVersion = "1.2.2"
+val sttpModelVersion = "1.3.1"
 
 val scalaTestVersion = "3.2.4-M1"
 val zioVersion = "1.0.3"
@@ -58,10 +57,8 @@ val commonJsSettings = commonSettings ++ Seq(
 )
 
 val commonNativeSettings = commonSettings ++ Seq(
-  nativeLinkStubs := true,
   ideSkipProject := true,
   libraryDependencies ++= Seq(
-    "org.scala-native" %%% "test-interface" % nativeVersion,
     "org.scalatest" %%% "scalatest" % scalaTestVersion % Test
   )
 )
@@ -102,7 +99,7 @@ lazy val core = (projectMatrix in file("core"))
     settings = commonJsSettings ++ browserChromeTestSettings
   )
   .nativePlatform(
-    scalaVersions = List(scala2_11),
+    scalaVersions = scala2,
     settings = commonNativeSettings
   )
 
@@ -120,7 +117,7 @@ lazy val ws = (projectMatrix in file("ws"))
     settings = commonJsSettings ++ browserChromeTestSettings
   )
   .nativePlatform(
-    scalaVersions = List(scala2_11),
+    scalaVersions = scala2,
     settings = commonNativeSettings
   )
   .dependsOn(core)
